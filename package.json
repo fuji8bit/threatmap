@@ -9,6 +9,7 @@
     "@material-ui/data-grid": "^4.0.0-alpha.37",
     "@material-ui/icons": "^4.11.3",
     "@mui/icons-material": "^5.10.9",
+    "@mui/lab": "^5.0.0-alpha.107",
     "@mui/material": "^5.10.12",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^12.0.0",

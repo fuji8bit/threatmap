@@ -1,14 +1,14 @@
-import DGrid  from './components/DGrid';
+import TabComponent  from './components/TabComponent';
 import Graph  from './components/Graph';
 import {useState} from 'react';
 
 const App = () => {
-  const [control, setControl] = useState({});
+  const [entity, setEntity] = useState({});
 
   return (
     <div>
-      <Graph currentControl={control} />
-      <DGrid currentControl={control} handleClick={setControl}/>
+      <Graph graphEntity={entity} setGraphEntity={setEntity} />
+      <TabComponent tabEntity={entity} setTabEntity={setEntity} />
     </div>
 
   )

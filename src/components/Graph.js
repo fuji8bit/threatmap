@@ -1,15 +1,28 @@
 import { useState, useEffect } from 'react'
 import ForceGraph2D from 'react-force-graph-2d';
 
-const Graph = ({currentControl}) => {
+const Graph = (props) => {
   const [graphData, setGraphData] = useState({nodes:[], links:[]});
-  const query = {"params": { "eid":"remediates", "vid": currentControl['id'] } }
+
+  const edgeDir = {'Control':'out', 'OWASP Risk':'in', 'Sub-Technique':'in'};
+  const query = { 
+                  "params": { 
+                    "dir": edgeDir[props.graphEntity['label']], 
+                    "eid": "remediates",
+                    "vid": props.graphEntity['id'] 
+                  } 
+                }
 
   const colors = {
     'Control': 7,
     'OWASP Risk': 5,
     'Sub-Technique': 10
   };
+
+  const nodeSelect = (node,event)=>{
+    console.log(node);
+    //props.setGraphEntity(node);
+  }
 
   useEffect(() => {
     fetch('https://vvsy0a3l1a.execute-api.us-east-1.amazonaws.com/demo/graph',
@@ -23,14 +36,15 @@ const Graph = ({currentControl}) => {
     })
     .then( (data) => data.json() )
     .then( (data) => setGraphData(data) )
-},[currentControl]);
+},[props.graphEntity]);
 
   return (
       <ForceGraph2D
         nodeAutoColorBy={d => colors[d.name]}
-        height={300}
+        height={350}
         graphData={graphData}
         nodeRelSize={8}
+        onNodeClick={nodeSelect}
 
         nodeCanvasObject = { (node, ctx, globalScale) => {
           const label = node.id;
